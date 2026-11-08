@@ -1,7 +1,7 @@
 // Extra decoration and depth for every code-drawn background, painted once on top of the base scene.
 // DECOR.paint(g, id) adds three things:
 //   1. a lighting pass: light from the top-left, darker floor towards the viewer, a soft haze on the far horizon;
-//   2. game-specific decorations (bunting, plants, lamps, posters, pebbles, shelves…) placed around the play area;
+//   2. game-specific decorations (bunting, plants, lamps, posters, pebbles, shelves, vines, banners, shrubs…) around the play area;
 //   3. fine paper grain so flat fills read as painted surfaces.
 const DECOR = (() => {
   const W = 1600, H = 900, TAU = Math.PI * 2;
@@ -71,6 +71,43 @@ const DECOR = (() => {
   function cobweb(x, y, s, flip) { g.save(); g.translate(x, y); g.scale(flip ? -s : s, s); g.strokeStyle = '#ffffff33'; g.lineWidth = 1.5; for (let i = 0; i < 6; i++) { const a = i * Math.PI / 10; g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a) * 120, Math.sin(a) * 120); g.stroke(); } for (let r = 25; r < 120; r += 22) { g.beginPath(); for (let i = 0; i < 6; i++) { const a = i * Math.PI / 10; g.lineTo(Math.cos(a) * r, Math.sin(a) * r); } g.stroke(); } g.restore(); }
   function coins(x, y, n) { for (let i = 0; i < n; i++) { const cx = x + (rnd() - .5) * 90, cy = y + (rnd() - .5) * 18; ell(cx, cy + 2, 9, 4, '#00000033'); ell(cx, cy, 9, 5, '#d99a00'); ell(cx, cy - 1, 7, 3.5, '#ffd84a'); } }
   function sign(x, y, col, text) { withShadow(() => { g.fillStyle = '#7a4a24'; g.fillRect(x - 4, y - 70, 8, 70); rr(x - 46, y - 104, 92, 40, 8); g.fillStyle = col; g.fill(); }); g.fillStyle = '#ffffff'; g.font = '700 20px "Fredoka","Baloo 2",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, x, y - 83); }
+  function vine(x, y0, len, flip = false, col = '#2f8f45') {
+    const dir = flip ? -1 : 1;
+    g.save(); g.strokeStyle = '#256b34'; g.lineWidth = 3.5; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(x, y0); g.quadraticCurveTo(x + 18 * dir, y0 + len * .5, x + 6 * dir, y0 + len); g.stroke();
+    for (let i = 1; i <= 5; i++) {
+      const u = i / 5.5, lx = x + Math.sin(u * Math.PI) * 14 * dir, ly = y0 + u * len, s = (1 - u * .3) * 14, side = (i % 2 ? 1 : -1) * dir;
+      g.save(); g.translate(lx, ly); g.rotate(side * .6); g.fillStyle = i % 2 ? col : '#49b35e';
+      g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(s * side, -s * .4, s * 1.4 * side, s * .2); g.quadraticCurveTo(s * .6 * side, s * .7, 0, 0); g.fill(); g.restore();
+    }
+    g.restore();
+  }
+  function bannerFlag(x, y, w, h, col, trim = '#ffd84a') {
+    withShadow(() => {
+      g.fillStyle = col; g.beginPath(); g.moveTo(x - w / 2, y); g.lineTo(x + w / 2, y); g.lineTo(x + w / 2, y + h); g.lineTo(x, y + h - 18); g.lineTo(x - w / 2, y + h); g.closePath(); g.fill();
+      g.strokeStyle = trim; g.lineWidth = 3; g.stroke();
+    }, 8, 4, .24);
+    ell(x, y + h * .42, w * .18, w * .18, trim);
+  }
+  function bushCluster(x, y, s = 1, col = '#3b9647', berry = '#ff6f8f') {
+    withShadow(() => {
+      [[-28, 4, 24], [0, -6, 30], [26, 5, 22]].forEach(([dx, dy, r], i) => ell(x + dx * s, y + dy * s, r * s, r * .8 * s, i === 1 ? '#48ab55' : col));
+    }, 8, 4, .22);
+    [[-16, -2], [4, -12], [18, 0], [-4, 4]].forEach(([dx, dy], i) => ell(x + dx * s, y + dy * s, 4 * s, 4 * s, i % 2 ? berry : '#ffd84a'));
+  }
+  function floorGlow(x, y, rx, ry, col = '#ffe89e') {
+    g.save(); g.globalCompositeOperation = 'lighter';
+    g.fillStyle = rad(x, y, 4, Math.max(rx, ry), [[0, shade(col, .35)], [1, shade(col, 0)]]);
+    g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, TAU); g.fill(); g.restore();
+  }
+  function booksStack(x, y, s = 1) {
+    const cols = ['#e05263', '#3b82f6', '#f59e0b', '#8b5cf6'];
+    for (let i = 0; i < 4; i++) {
+      const w = (54 - i * 4) * s, h = 11 * s, ox = ((i % 2) * 4 - 2) * s, by = y - (i + 1) * h;
+      withShadow(() => { rr(x - w / 2 + ox, by, w, h, 3); g.fillStyle = cols[i]; g.fill(); }, 4, 2, .18);
+      g.fillStyle = '#fff8ea'; g.fillRect(x - w / 2 + ox + 4 * s, by + 2 * s, w - 10 * s, h - 4 * s);
+    }
+  }
 
   // ---------- lighting and texture ----------
   function lighting(floorY, warm = '#fff6dc', cool = '#1c2550') {
@@ -94,6 +131,12 @@ const DECOR = (() => {
   // ---------- per-game decoration lists ----------
   const PARTY = ['#ff6f8f', '#ffd84a', '#7cd0ff', '#7cff9b', '#b48cff'];
   const GAME = {
+    g13: { floor: 262, fn() { bunting(150, 255, 1440, 255, 20, ['#7cd0ff', '#ffffff', '#ff6f8f']); stringLights(120, 18, 1480, 18, 35, ['#7cf7ff', '#ffffff']); [[200, 870], [700, 880], [1200, 870]].forEach(([x, y]) => { ell(x, y, 50, 18, '#ffffff'); ell(x + 30, y - 6, 30, 14, '#eaf6ff'); }); sign(1520, 255, '#ff6f8f', 'FLAG'); sparkles(60, [0, 260, 1600, 600], '#ffffff'); } },
+    g14: { floor: 290, fn() { vine(70, 0, 120, false); [[300, 860], [800, 870], [1300, 860], [550, 310], [1050, 310]].forEach(([x, y]) => pebbles(x, y, 8, '#f6e2c0')); [[160, 600], [1500, 500], [120, 830]].forEach(([x, y]) => { for (let k = 0; k < 5; k++) { const a = k * TAU / 5; ell(x + Math.cos(a) * 14, y + Math.sin(a) * 14, 10, 6, '#ff9f8f'); } ell(x, y, 8, 8, '#ff6f6f'); }); bunting(1240, 380, 1600, 370, 30, PARTY); balloon(80, 360, '#7cd0ff'); balloon(1540, 330, '#ffd84a'); } },
+    g15: { floor: 440, fn() { stringLights(0, 30, 1600, 40, 80, ['#ff6fae', '#7cf7ff', '#ffd84a', '#7cff9b']); bannerFlag(180, 20, 50, 95, '#3b1d6e', '#7cf7ff'); bannerFlag(1420, 20, 50, 95, '#3b1d6e', '#7cf7ff'); stars(90, 400); floorGlow(800, 670, 260, 65, '#7cf7ff'); [[100, 480], [1500, 480]].forEach(([x, y]) => { ell(x, y + 10, 50, 14, '#00000044'); ell(x, y, 40, 24, '#7cff9b', '#ffffff', 3); ell(x, y - 12, 20, 14, '#b4f0ff'); }); } },
+    g16: { floor: 330, fn() { stringLights(0, 30, 1600, 30, 40, ['#fff3a0', '#c9a0ff']); [[90, 320], [1510, 320]].forEach(([x, y]) => lamp(x, y, '#ffe0a0', '#5a3a2e', 120)); shelf(1080, 220, 260, [[30, '#ffb3d6', 'ball'], [90, '#7cd0ff', 'book'], [120, '#ffd84a', 'book'], [180, '#b48cff', 'jar']]); booksStack(220, 330, 1.1); rug(800, 820, 240, 40, '#4a2e6b', '#ffd84a'); stars(40, 300); } },
+    g17: { floor: 400, fn() { bunting(0, 10, 1600, 10, 40, ['#ffb3d6', '#ffffff', '#ffd84a']); stringLights(120, 18, 1480, 18, 30, ['#ffe0a0', '#ff9fc4']); shelf(560, 300, 480, [[40, '#ffffff', 'jar'], [110, '#c96a4a', 'jar'], [180, '#ffffff', 'ball'], [260, '#ffd84a', 'jar'], [340, '#ff9fc4', 'ball'], [420, '#7cd0ff', 'jar']]); [[1300, 880], [300, 880], [100, 410], [1500, 410]].forEach(([x, y]) => pot(x, y, .85)); rug(800, 810, 220, 38, '#d97a8c', '#fff4dc'); } },
+    g18: { floor: 400, fn() { bunting(160, 24, 1440, 24, 32, ['#7cff9b', '#7cd0ff', '#ffd84a']); [[100, 460], [1500, 460]].forEach(([x, y]) => lamp(x, y, '#fff3a0', '#3d566e', 150)); [[700, 880], [1000, 880], [260, 880]].forEach(([x, y]) => tuft(x, y, 1.6)); crate(1460, 860, .65); sign(80, 880, '#3fbf6a', 'RECYCLE'); flowerBed(1150, 880, 340, ['#ffd34d', '#ff6fae']); } },
   };
 
   return {
