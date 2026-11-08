@@ -59,11 +59,11 @@
       ctx.save(); ctx.strokeStyle = '#c9c9d9'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(BALL[0], 0); ctx.lineTo(BALL[0], BALL[1] - 50); ctx.stroke(); ctx.restore();
       if (dancing || (te > 1.4 && te < 2.2)) FX.halo(...BALL, 140 * (1 + (1 - beatK) * .3), COLORS[Math.floor(rt / BEAT) % 5], .5);
       drawImg(te > 1.4 && !r.plain && !done ? 'p12' : 'p11', BALL[0], BALL[1], 110, { rot: rt * .8 });
-      // host alien shows the move
+      // host alien dances and glides along the stage
       let hp = dancing ? (copy ? 'p0' : (Math.floor(rt / BEAT) % 2 ? 'p1' : 'p2')) : 'p0';
       if (!r.plain && te > .9 && te < 1.8) hp = 'p6';
       if (done) hp = 'p4';
-      drawImg(hp, HOST[0], HOST[1], 130, { anchor: 'bottom' });
+      drawImg(hp, HOST[0] + Math.sin(rt * 2) * 35, HOST[1] + Math.cos(rt * 1.5) * 65 - Math.abs(Math.sin(rt / BEAT * Math.PI)) * 16, 130, { anchor: 'bottom', rot: Math.sin(rt * 4) * .06 });
       const [sx, sy, sa] = done ? [Wn.sx, Wn.sy - 40, 1] : this.spot(r, rt);
       scanner(sx, sy, sa);
       const order = [...r.players].sort((a, b) => a.sy - b.sy);
@@ -92,7 +92,7 @@
     idle(t) {
       FX.halo(...BALL, 140, COLORS[Math.floor(t / BEAT) % 5], .45);
       drawImg('p11', BALL[0], BALL[1], 110, { rot: t * .8 });
-      drawImg(Math.floor(t / BEAT) % 2 ? 'p1' : 'p2', HOST[0], HOST[1], 130, { anchor: 'bottom' });
+      drawImg(Math.floor(t / BEAT) % 2 ? 'p1' : 'p2', HOST[0] + Math.sin(t * 2) * 35, HOST[1] + Math.cos(t * 1.5) * 60 - Math.abs(Math.sin(t / BEAT * Math.PI)) * 14, 130, { anchor: 'bottom', rot: Math.sin(t * 4) * .06 });
       scanner(800 + Math.sin(t * 1.2) * 520, 660 + Math.sin(t * 2.3) * 130, .5);
       SPOTS.forEach(([x, y], i) => charImg(i, Math.floor(t / BEAT) % 2 ? 'step' : 'turn', x, y, kidH(y)));
     },

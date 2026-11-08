@@ -89,13 +89,12 @@
         charImg(p.av, pose, x, y + 6, 92);
         tagC(p.name, x - 110, y - 18, r.leader === p && te < 0);
       }
-      // referee penguin
-      let mp = 'p7';
+      // referee penguin waddles along the finish line
+      let mp = Math.floor(rt * 2.5) % 2 ? 'p7' : 'p1';
       if (rt < 1) mp = 'p1'; else if (!r.plain && te > .8 && te < 1.6) mp = 'p9'; else if (te > 1.6) mp = 'p13';
-      drawImg(mp, 1500, 250, 110, { anchor: 'bottom' });
+      drawImg(mp, 1460 + Math.sin(rt * 1.8) * 50, 260 + Math.cos(rt * 1.4) * 50 - Math.abs(Math.sin(rt * 6)) * 12, 110, { anchor: 'bottom', flip: Math.cos(rt * 1.8) > 0 });
       if (done) {
         const k = clamp((rt - r.doneAt) / .4);
-        drawImg('p4', FLAG_X + 90, Wn.ly - 150, 70);
         charImg(Wn.av, 'win', FLAG_X, Wn.ly + 10, 190 * (.6 + .4 * ease(k)));
         tagC(Wn.name, FLAG_X, Wn.ly + 34, true);
       }
@@ -106,7 +105,7 @@
       drawImg('p10', FLAG_X, 250, 110, { anchor: 'bottom' });
       drawImg('p23', PILE[0], 560, 210); drawImg('p21', PILE[0] + 30, 760, 150);
       for (let i = 0; i < 10; i++) charImg(i, 'slide', X0 + ((t * 60 + i * 113) % (FLAG_X - X0 - 80)), laneY(i, 10) + 6, 92);
-      drawImg('p7', 1500, 250, 110, { anchor: 'bottom' });
+      drawImg(Math.floor(t * 2) % 2 ? 'p7' : 'p1', 1460 + Math.sin(t * 1.7) * 50, 260 + Math.cos(t * 1.3) * 45 - Math.abs(Math.sin(t * 5.5)) * 10, 110, { anchor: 'bottom' });
     },
     onFinish(r) { FX.glitter(FLAG_X, r.winner.ly - 80, 30, ['#ffffff', '#bfefff', '#ffd84a']); },
     winBanner: r => '🏁 ' + r.winner.name + ' stops right on the flag!',

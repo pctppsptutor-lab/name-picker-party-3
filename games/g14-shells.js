@@ -83,13 +83,12 @@
         charImg(p.av, pose, x, y + Math.abs(Math.sin(rt * 9 + p.seed * 9)) * -3, 96);
         tagC(p.name, x - 100, y - 14, (r.leader === p && te < 0) || (p === Wn && te > 1.7));
       }
-      // hermit crab referee on the castle
-      let cp = 'p0';
+      // hermit crab referee scuttles around the sandcastle
+      let cp = Math.floor(rt * 3) % 2 ? 'p0' : 'p2';
       if (rt < 1) cp = 'p2'; else if (!r.plain && te > .7 && te < 1.7) cp = 'p1'; else if (done) cp = 'p3';
-      drawImg(cp, CASTLE[0] + 120, CASTLE[1] + 40, 110, { anchor: 'bottom' });
+      drawImg(cp, CASTLE[0] + 60 + Math.sin(rt * 2.2) * 80, CASTLE[1] + 45 - Math.abs(Math.sin(rt * 8)) * 10, 110, { anchor: 'bottom', flip: Math.cos(rt * 2.2) < 0 });
       if (done) {
         const k = clamp((rt - r.doneAt) / .4);
-        drawImg('p18', CASTLE[0] - 60, CASTLE[1] - 230, 80);
         charImg(Wn.av, 'win', CASTLE[0] - 60, CASTLE[1] + 70, 200 * (.6 + .4 * ease(k)));
         tagC(Wn.name, CASTLE[0] - 60, CASTLE[1] + 94, true);
       }
@@ -98,7 +97,7 @@
     idle(t) {
       drawImg('p30', ...CASTLE, 220, { anchor: 'bottom' });
       for (let i = 0; i < 10; i++) charImg(i, 'action', X0 + ((t * 45 + i * 101) % (X1 - X0)), laneY(i, 10), 96);
-      drawImg('p0', CASTLE[0] + 120, CASTLE[1] + 40, 110, { anchor: 'bottom' });
+      drawImg(Math.floor(t * 3) % 2 ? 'p0' : 'p2', CASTLE[0] + 60 + Math.sin(t * 2) * 80, CASTLE[1] + 45 - Math.abs(Math.sin(t * 7.5)) * 10, 110, { anchor: 'bottom', flip: Math.cos(t * 2) < 0 });
     },
     onFinish() { FX.sparkle(CASTLE[0] - 60, CASTLE[1] - 120, 36, ['#ffd84a', '#7cf7ff', '#ffffff']); },
     winBanner: r => '🏰 ' + r.winner.name + ' reaches the sandcastle!',

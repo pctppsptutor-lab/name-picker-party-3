@@ -90,12 +90,12 @@
       }
       cake(cx, cy, rt, legs);
       if (legs) FX.every(r, 'crumb', .1, () => FX.smoke(cx, cy + 30, 1, '#ffe0c0'));
-      // cat manager
-      let mx = 1460, my = 380, mp = 'p0';
-      if (!r.plain && te > 1.1 && te < 2.4 && !done) { const k = ease(clamp((te - 1.1) / .4)); mx = lerp(1460, cx + (cx > 800 ? 90 : -90), k); my = lerp(380, cy + 150, k); mp = 'p4'; }
+      // cat manager patrols the cafe floor and intercepts the runaway cake
+      let mx = 1435 + Math.sin(rt * 1.7) * 55, my = 430 + Math.cos(rt * 1.3) * 80 - Math.abs(Math.sin(rt * 6)) * 14, mp = Math.floor(rt * 2.5) % 2 ? 'p0' : 'p1';
+      if (!r.plain && te > 1.1 && te < 2.4 && !done) { const k = ease(clamp((te - 1.1) / .4)); mx = lerp(1435, cx + (cx > 800 ? 90 : -90), k); my = lerp(430, cy + 150, k); mp = 'p4'; }
       if (!r.plain && te > .5 && te < 1.1) mp = 'p1';
-      if (done) mp = 'p3';
-      drawImg(mp, mx, my, 150, { anchor: 'bottom', flip: mp === 'p4' && cx > mx });
+      if (done) { mp = 'p3'; mx = 1450; my = 420 - Math.abs(Math.sin(rt * 5)) * 10; }
+      drawImg(mp, mx, my, 150, { anchor: 'bottom', flip: (mp === 'p4' && cx > mx) || (te < 0 && Math.cos(rt * 1.7) > 0) });
       if (done) {
         const k = clamp((rt - r.doneAt) / .4);
         charImg(Wn.av, 'win', TABLE[0] - 110, TABLE[1] + 90, 220 * (.6 + .4 * ease(k)));
@@ -109,7 +109,7 @@
       const u = (t * .8) % 9, i = Math.floor(u), k = u - i, a = LINE[i], b = LINE[i + 1];
       LINE.forEach(([x, y], j) => charImg(j, j === Math.round(u) ? 'receive' : 'waiting', x, y, 160));
       cake(lerp(a[0], b[0], k), lerp(a[1], b[1], k) - 150 - Math.sin(k * Math.PI) * 40, t, false);
-      drawImg('p0', 1460, 380, 150, { anchor: 'bottom' });
+      drawImg(Math.floor(t * 2) % 2 ? 'p0' : 'p1', 1435 + Math.sin(t * 1.6) * 55, 430 + Math.cos(t * 1.2) * 75 - Math.abs(Math.sin(t * 5.5)) * 12, 150, { anchor: 'bottom' });
     },
     onFinish() { FX.sparkle(TABLE[0], TABLE[1] - 90, 30, ['#ffb3d6', '#ffd84a', '#ffffff']); },
     winBanner: r => '🍰 ' + r.winner.name + ' delivers the cake!',

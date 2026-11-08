@@ -70,7 +70,7 @@
         if (p === D && r.plain && te > 0 && te < 1.6) pose = 'hear';
         if (p === Wn && te > 1.6) pose = te > 2.4 ? 'pillow' : 'hear';
         charImg(p.av, pose, x, y, 140);
-        if (pose === 'sleep') drawImg('p16', x + 60, y - 120 - (rt * 20 + p.seed * 50) % 30, 50, { alpha: .8 });
+        if (pose === 'sleep' && Math.sin(rt * 2 + p.seed * 6) > 0) drawImg('p16', x + 52, y - 125 - (rt * 18 + p.seed * 40) % 26, 42, { alpha: .75 });
         tagC(p.name, p.bx, p.by + 24, on);
       }
       // the flying pillow
@@ -79,8 +79,8 @@
         drawImg('p7', lerp(sx, bx, k), lerp(sy, by, k) - Math.sin(k * Math.PI) * 160, 80, { rot: k * 9 });
         if (k >= 1) FX.every(r, 'feath', .2, () => FX.glitter(bx, by, 4, ['#ffffff']));
       }
-      // the big sleepy mascot in the corner
-      drawImg(done ? 'p0' : 'p1', 120, 860, 190, { anchor: 'bottom' });
+      // the big sleepy mascot tiptoes along the foreground
+      drawImg(done ? 'p0' : (rg ? 'p0' : 'p1'), 155 + Math.sin(rt * 1.4) * 75, 860 - Math.abs(Math.sin(rt * 4.8)) * 12, 190, { anchor: 'bottom', flip: Math.cos(rt * 1.4) < 0 });
       if (done) {
         const k = clamp((rt - r.doneAt) / .4);
         charImg(Wn.av, 'win', Wn.bx, Wn.by + 10, 220 * (.6 + .4 * ease(k)));
@@ -96,7 +96,7 @@
         drawImg('p3', x + 70, y - 110, 46, { rot: on ? Math.sin(t * 30) * .3 : 0 });
         charImg(i, 'sleep', x, y, 140);
       });
-      drawImg('p1', 120, 860, 190, { anchor: 'bottom' });
+      drawImg(Math.floor(t * 1.6) % 2 ? 'p0' : 'p1', 155 + Math.sin(t * 1.3) * 75, 860 - Math.abs(Math.sin(t * 4.5)) * 10, 190, { anchor: 'bottom', flip: Math.cos(t * 1.3) < 0 });
     },
     onFinish(r) { FX.sparkle(r.winner.bx, r.winner.by - 120, 36, LIGHTS); },
     winBanner: r => '⏰ ' + r.winner.name + ' is finally awake!',

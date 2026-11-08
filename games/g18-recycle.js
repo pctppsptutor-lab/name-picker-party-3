@@ -71,14 +71,15 @@
         if (p === D && te > 0) pose = r.plain ? 'select' : te < .5 ? 'select' : 'false';
         if (p === Wn && te > (r.plain ? 1.1 : 1.9)) pose = 'sensor';
         charImg(p.av, pose, p.bx, KID_Y, 140);
-        drawImg(ITEMS[p.type], p.bx + 44, KID_Y - 60, 34);
         tagC(p.name, p.bx, KID_Y + 22, lit);
       }
-      // the truck
+      // the truck bounces and chugs along its route
       let tp = 'p0';
       if (te < 0 && f) tp = 'p7'; else if (!r.plain && te > .5 && te < 1.9) tp = 'p10'; else if (te > 1.9 || (r.plain && te > 1.1)) tp = 'p13';
       if (done) tp = 'p14';
-      drawImg(tp, tx, TRUCK_Y, 210, { anchor: 'bottom', flip: Math.cos(rt * .8) < 0 && te < 0 && !f });
+      const tBounce = Math.abs(Math.sin(rt * 11)) * 7;
+      drawImg(tp, tx, TRUCK_Y - tBounce, 210, { anchor: 'bottom', rot: Math.sin(rt * 9) * .025, flip: Math.cos(rt * .8) < 0 && te < 0 && !f });
+      if (!done) FX.every(r, 'trk', .22, () => FX.smoke(tx + (Math.cos(rt * .8) < 0 ? 90 : -90), TRUCK_Y - 30, 1, '#dce6dc'));
       if (done) {
         const k = clamp((rt - r.doneAt) / .4);
         drawImg('p34', Wn.bx, BIN_Y - 170, 120, { rot: rt });
@@ -89,10 +90,10 @@
     },
 
     idle(t) {
-      const tx = 800 + Math.sin(t * .8) * 560;
+      const tx = 800 + Math.sin(t * .8) * 560, tBounce = Math.abs(Math.sin(t * 11)) * 6;
       FX.beam(tx, TRUCK_Y - 20, BIN_Y + 10, 60, t);
-      XS.forEach((x, i) => { drawImg(BINS[i % 4], x, BIN_Y, 92, { anchor: 'bottom' }); charImg(i, 'observe', x, KID_Y, 140); drawImg(ITEMS[i % 4], x + 44, KID_Y - 60, 34); });
-      drawImg('p0', tx, TRUCK_Y, 210, { anchor: 'bottom', flip: Math.cos(t * .8) < 0 });
+      XS.forEach((x, i) => { drawImg(BINS[i % 4], x, BIN_Y, 92, { anchor: 'bottom' }); charImg(i, 'observe', x, KID_Y, 140); });
+      drawImg('p0', tx, TRUCK_Y - tBounce, 210, { anchor: 'bottom', rot: Math.sin(t * 9) * .02, flip: Math.cos(t * .8) < 0 });
     },
     onFinish(r) { FX.sparkle(r.winner.bx, BIN_Y - 140, 36, ['#7cff9b', '#ffd84a', '#7cf7ff']); },
     winBanner: r => '♻️ ' + r.winner.name + ' sorted it perfectly!',
