@@ -1,4 +1,4 @@
-// Game 18 — Recycling Truck Mix-Up (sorting & puzzles)
+﻿// Game 18 â€” Recycling Truck Mix-Up (sorting & puzzles)
 // Each student has an item to sort; the recycling truck scans the bins one by one and the bin it lights up picks the player.
 // Twist: the first bin springs open with a toy spring and flags a sorting error; a metal can rolls past the sensor and lights the winner's bin.
 (() => {
@@ -17,9 +17,8 @@
 
   GAME_IMPL.g18 = {
     id: 'g18', title: 'Recycling Truck Mix-Up', base: 'assets/g18/', titleY: 230, paintedOk: false,
-    assets: gAssets(['observe', 'scan', 'compare', 'select', 'false', 'sensor', 'win'],
-      [...BINS, 'p28', 'p29', 'p30', 'p0', 'p1', 'p4', 'p6', 'p7', 'p10', 'p13', 'p14', 'p33', 'p34', 'p35', 'p38', 'p51']),
-    startBanner: '♻️ The recycling truck starts its rounds!', mote: '#e8ffe0', rayColor: '#eaffb0',
+    assets: gAssets(['observe', 'scan', 'compare', 'select', 'false', 'sensor', 'win'], [...BINS, 'p28', 'p29', 'p30', 'p0', 'p7', 'p10', 'p13', 'p14', 'p33', 'p34']),
+    startBanner: 'â™»ï¸ The recycling truck starts its rounds!', mote: '#e8ffe0', rayColor: '#eaffb0',
 
     setup(r) {
       const slots = spread(r.players.length);
@@ -36,16 +35,16 @@
     tick(r, t, te) {
       const f = activeFake(r, t), D = r.decoy, Wn = r.winner;
       if (te < 0 && !f) r.lastTX = this.truckX(r, t);
-      if (f && te < 0) cue('fk' + f.at, () => { r.banner = '🔍 Scanning ' + f.p.name + "'s bin…"; SFX.tone(1400, .15, { type: 'square', vol: .04, to: 1800 }); });
+      if (f && te < 0) cue('fk' + f.at, () => { r.banner = 'ðŸ” Scanning ' + f.p.name + "'s binâ€¦"; SFX.tone(1400, .15, { type: 'square', vol: .04, to: 1800 }); });
       if (te < 0 && Math.random() < .03) SFX.tone(80, .1, { type: 'sawtooth', vol: .03, lp: 300 });   // engine rumble
       if (!r.plain) {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '♻️ ' + D.name + "'s bin lights up…"; });
-        if (te > .5) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 9); SFX.boing(); [0, .25].forEach(d => SFX.tone(660, .2, { type: 'square', vol: .07, delay: d })); r.banner = '⚠️ BOING! A toy spring — wrong sort!'; });
-        if (te > 1.1) cue('c', () => { SFX.tone(500, .9, { type: 'triangle', vol: .06, to: 300 }); r.banner = '🥫 A metal can rolls past the sensor…'; });
-        if (te > 1.9) cue('d', () => { outcome('selected', Wn); SFX.sparkle(); r.banner = '💡 …and lights up ' + Wn.name + "'s bin!"; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = 'â™»ï¸ ' + D.name + "'s bin lights upâ€¦"; });
+        if (te > .5) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 9); SFX.boing(); [0, .25].forEach(d => SFX.tone(660, .2, { type: 'square', vol: .07, delay: d })); r.banner = 'âš ï¸ BOING! A toy spring â€” wrong sort!'; });
+        if (te > 1.1) cue('c', () => { SFX.tone(500, .9, { type: 'triangle', vol: .06, to: 300 }); r.banner = 'ðŸ¥« A metal can rolls past the sensorâ€¦'; });
+        if (te > 1.9) cue('d', () => { outcome('selected', Wn); SFX.sparkle(); r.banner = 'ðŸ’¡ â€¦and lights up ' + Wn.name + "'s bin!"; });
       } else {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '♻️ Is it ' + (D || Wn).name + "'s bin?"; });
-        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = '🚚 The truck rolls on to the right bin!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = 'â™»ï¸ Is it ' + (D || Wn).name + "'s bin?"; });
+        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = 'ðŸšš The truck rolls on to the right bin!'; });
       }
       if (te > 2.6) cue('sort', () => { SFX.ding(); FX.sparkle(Wn.bx, BIN_Y - 60, 24, ['#7cff9b', '#ffffff']); });
     },
@@ -96,7 +95,7 @@
       drawImg('p0', tx, TRUCK_Y, 210, { anchor: 'bottom', flip: Math.cos(t * .8) < 0 });
     },
     onFinish(r) { FX.sparkle(r.winner.bx, BIN_Y - 140, 36, ['#7cff9b', '#ffd84a', '#7cf7ff']); },
-    winBanner: r => '♻️ ' + r.winner.name + ' sorted it perfectly!',
+    winBanner: r => 'â™»ï¸ ' + r.winner.name + ' sorted it perfectly!',
     winPos: r => ({ x: r.winner.bx, y: BIN_Y - 100 })
   };
 })();

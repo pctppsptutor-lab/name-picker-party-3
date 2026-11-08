@@ -1,7 +1,7 @@
-// Game 15 — Alien Costume Party (music & rhythm)
+﻿// Game 15 â€” Alien Costume Party (music & rhythm)
 // Ten "aliens" watch a dance move on the disco floor, then copy it. When the music stops everyone freezes,
 // and the scanner picks whoever held the last pose.
-// Twist: the first alien in the light pops open — two tiny aliens inside, striking the wrong pose; the disco ball replays the last beat and picks the real winner.
+// Twist: the first alien in the light pops open â€” two tiny aliens inside, striking the wrong pose; the disco ball replays the last beat and picks the real winner.
 (() => {
   const SPOTS = [[400, 540], [600, 540], [800, 540], [1000, 540], [1200, 540], [300, 780], [550, 780], [800, 780], [1050, 780], [1300, 780]];
   const BALL = [800, 120], HOST = [1460, 470], BEAT = .5;
@@ -17,8 +17,8 @@
 
   GAME_IMPL.g15 = {
     id: 'g15', title: 'Alien Costume Party', base: 'assets/g15/', titleY: 430, paintedOk: false,
-    assets: gAssets(['watch', 'step', 'turn', 'freeze', 'scan', 'tiny', 'win'], ['p0', 'p1', 'p2', 'p4', 'p6', 'p7', 'p11', 'p12', 'p10', 'p24', 'p31', 'p18']),
-    startBanner: '👽 Watch the move… then copy it!', mote: '#e6d6ff', rayColor: '#e6ccff',
+    assets: gAssets(['watch', 'step', 'turn', 'freeze', 'scan', 'tiny', 'win'], ['p0', 'p1', 'p2', 'p4', 'p6', 'p11', 'p12', 'p24', 'p31']),
+    startBanner: 'ðŸ‘½ Watch the moveâ€¦ then copy it!', mote: '#e6d6ff', rayColor: '#e6ccff',
 
     setup(r) {
       const slots = spread(r.players.length);
@@ -37,18 +37,18 @@
       if (te < 0 && t > .6 && b !== r.lastBeat) {
         r.lastBeat = b; const copy = Math.floor(b / 4) % 2;
         SFX.tone(copy ? 330 : 440, .12, { type: 'square', vol: .05, lp: 1400 });
-        if (b % 4 === 0) r.banner = copy ? '🕺 Now copy the move!' : '👀 Watch the host…';
+        if (b % 4 === 0) r.banner = copy ? 'ðŸ•º Now copy the move!' : 'ðŸ‘€ Watch the hostâ€¦';
       }
-      if (f && te < 0) cue('fk' + f.at, () => { r.banner = '🔦 The scanner checks ' + f.p.name + '…'; SFX.leader(); });
-      if (te > 0) cue('stop', () => { Music.stop(); SFX.tone(260, .5, { type: 'sawtooth', vol: .1, to: 60, lp: 900 }); r.banner = '🧊 FREEZE!'; });
+      if (f && te < 0) cue('fk' + f.at, () => { r.banner = 'ðŸ”¦ The scanner checks ' + f.p.name + 'â€¦'; SFX.leader(); });
+      if (te > 0) cue('stop', () => { Music.stop(); SFX.tone(260, .5, { type: 'sawtooth', vol: .1, to: 60, lp: 900 }); r.banner = 'ðŸ§Š FREEZE!'; });
       if (!r.plain) {
-        if (te > .4) cue('a', () => { outcome('almost_selected', D); SFX.sparkle(); r.banner = '✨ The scanner lights up ' + D.name + '…'; });
-        if (te > .9) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 10); SFX.pop(); SFX.quack(.1, 2.6); r.banner = '👽👽 The costume pops open — two tiny aliens in the wrong pose!'; });
-        if (te > 1.4) cue('c', () => { Music.play('tension'); [0, .25].forEach(d => SFX.tone(523, .2, { type: 'triangle', vol: .15, delay: d })); FX.ring(...BALL, '#ff6fae', 200); r.banner = '🪩 The disco ball replays the last beat…'; });
-        if (te > 1.8) cue('d', () => { outcome('selected', Wn); r.banner = '🔦 …and scans ' + Wn.name + '!'; });
+        if (te > .4) cue('a', () => { outcome('almost_selected', D); SFX.sparkle(); r.banner = 'âœ¨ The scanner lights up ' + D.name + 'â€¦'; });
+        if (te > .9) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 10); SFX.pop(); SFX.quack(.1, 2.6); r.banner = 'ðŸ‘½ðŸ‘½ The costume pops open â€” two tiny aliens in the wrong pose!'; });
+        if (te > 1.4) cue('c', () => { Music.play('tension'); [0, .25].forEach(d => SFX.tone(523, .2, { type: 'triangle', vol: .15, delay: d })); FX.ring(...BALL, '#ff6fae', 200); r.banner = 'ðŸª© The disco ball replays the last beatâ€¦'; });
+        if (te > 1.8) cue('d', () => { outcome('selected', Wn); r.banner = 'ðŸ”¦ â€¦and scans ' + Wn.name + '!'; });
       } else {
-        if (te > .4) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '🔦 Is it ' + (D || Wn).name + '?'; });
-        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = '🔦 …no! The scanner moves on!'; });
+        if (te > .4) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = 'ðŸ”¦ Is it ' + (D || Wn).name + '?'; });
+        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = 'ðŸ”¦ â€¦no! The scanner moves on!'; });
       }
     },
 
@@ -97,7 +97,7 @@
       SPOTS.forEach(([x, y], i) => charImg(i, Math.floor(t / BEAT) % 2 ? 'step' : 'turn', x, y, kidH(y)));
     },
     onFinish(r) { FX.sparkle(r.winner.sx, r.winner.sy - 150, 40, COLORS); },
-    winBanner: r => '🛸 ' + r.winner.name + ' held the perfect pose!',
+    winBanner: r => 'ðŸ›¸ ' + r.winner.name + ' held the perfect pose!',
     winPos: r => ({ x: r.winner.sx, y: r.winner.sy - 130 })
   };
 })();

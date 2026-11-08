@@ -1,4 +1,4 @@
-// Game 14 — Secret Shell Swap
+﻿// Game 14 â€” Secret Shell Swap
 // Ten students wearing ten different shells scuttle sideways across the beach; the first to reach the sandcastle is picked.
 // Twist: the first shell to arrive is empty; a sea bubble pops and shows the real winner hiding inside another shell.
 (() => {
@@ -15,9 +15,8 @@
 
   GAME_IMPL.g14 = {
     id: 'g14', title: 'Secret Shell Swap', base: 'assets/g14/', titleY: 220, paintedOk: false,
-    assets: gAssets(['idle', 'ready', 'action', 'almost', 'fake', 'twist', 'win'],
-      [...SHELLS, 'p0', 'p1', 'p2', 'p3', 'p8', 'p9', 'p14', 'p16', 'p18', 'p30', 'p33', 'p37', 'p40']),
-    startBanner: '🦀 Scuttle sideways to the sandcastle!', mote: '#fff6dc', rayColor: '#fff2a8',
+    assets: gAssets(['idle', 'ready', 'action', 'almost', 'fake', 'twist', 'win'], [...SHELLS, 'p0', 'p1', 'p2', 'p3', 'p18', 'p30', 'p33', 'p37']),
+    startBanner: 'ðŸ¦€ Scuttle sideways to the sandcastle!', mote: '#fff6dc', rayColor: '#fff2a8',
 
     setup(r) {
       const n = r.players.length, lanes = shuffle([...Array(n).keys()]);
@@ -41,17 +40,17 @@
       const D = r.decoy, Wn = r.winner;
       if (te < -.25 && t > 1.3) {
         const lead = r.players.reduce((a, b) => progress(r, b, t) > progress(r, a, t) ? b : a);
-        if (lead !== r.leader && t - (r.leaderAt || 0) > .5) { r.leader = lead; r.leaderAt = t; r.banner = '🐚 In front: ' + lead.name; SFX.leader(); }
+        if (lead !== r.leader && t - (r.leaderAt || 0) > .5) { r.leader = lead; r.leaderAt = t; r.banner = 'ðŸš In front: ' + lead.name; SFX.leader(); }
       }
       if (te < 0 && Math.random() < .06) SFX.tone(900 + Math.random() * 400, .03, { type: 'triangle', vol: .02 });   // tiny scuttling clicks
       if (!r.plain) {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '🐚 ' + D.name + "'s shell reaches the castle!"; });
-        if (te > .7) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.sadTrombone(); r.banner = '❓ Wait… the shell is EMPTY!'; });
-        if (te > 1.2) cue('c', () => { SFX.bubbles(); r.banner = '🫧 A sea bubble floats over another shell…'; });
-        if (te > 1.7) cue('d', () => { outcome('selected', Wn); SFX.pop(); FX.bubbles(Wn.x, Wn.y, 16); r.banner = '💥 POP! ' + Wn.name + ' was hiding inside!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = 'ðŸš ' + D.name + "'s shell reaches the castle!"; });
+        if (te > .7) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.sadTrombone(); r.banner = 'â“ Waitâ€¦ the shell is EMPTY!'; });
+        if (te > 1.2) cue('c', () => { SFX.bubbles(); r.banner = 'ðŸ«§ A sea bubble floats over another shellâ€¦'; });
+        if (te > 1.7) cue('d', () => { outcome('selected', Wn); SFX.pop(); FX.bubbles(Wn.x, Wn.y, 16); r.banner = 'ðŸ’¥ POP! ' + Wn.name + ' was hiding inside!'; });
       } else {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '🐚 ' + (D || Wn).name + ' is nearly there…'; });
-        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = '💨 …but another shell zooms past!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = 'ðŸš ' + (D || Wn).name + ' is nearly thereâ€¦'; });
+        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = 'ðŸ’¨ â€¦but another shell zooms past!'; });
       }
       if (te > 2.9) cue('in', () => { SFX.ding(); FX.sparkle(...CASTLE, 26); });
     },
@@ -102,7 +101,7 @@
       drawImg('p0', CASTLE[0] + 120, CASTLE[1] + 40, 110, { anchor: 'bottom' });
     },
     onFinish() { FX.sparkle(CASTLE[0] - 60, CASTLE[1] - 120, 36, ['#ffd84a', '#7cf7ff', '#ffffff']); },
-    winBanner: r => '🏰 ' + r.winner.name + ' reaches the sandcastle!',
+    winBanner: r => 'ðŸ° ' + r.winner.name + ' reaches the sandcastle!',
     winPos: () => ({ x: CASTLE[0] - 60, y: CASTLE[1] - 60 })
   };
 })();
