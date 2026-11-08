@@ -94,12 +94,6 @@ const DECOR = (() => {
   // ---------- per-game decoration lists ----------
   const PARTY = ['#ff6f8f', '#ffd84a', '#7cd0ff', '#7cff9b', '#b48cff'];
   const GAME = {
-    g13: { floor: 262, fn() { bunting(150, 255, 1440, 255, 20, ['#7cd0ff', '#ffffff', '#ff6f8f']); [[200, 870], [700, 880], [1200, 870]].forEach(([x, y]) => { ell(x, y, 50, 18, '#ffffff'); ell(x + 30, y - 6, 30, 14, '#eaf6ff'); }); sign(1520, 255, '#ff6f8f', 'FLAG'); sparkles(50, [0, 260, 1600, 600], '#ffffff'); } },
-    g14: { floor: 290, fn() { [[300, 860], [800, 870], [1300, 860]].forEach(([x, y]) => pebbles(x, y, 8, '#f6e2c0')); [[160, 600], [1500, 500]].forEach(([x, y]) => { for (let k = 0; k < 5; k++) { const a = k * TAU / 5; ell(x + Math.cos(a) * 14, y + Math.sin(a) * 14, 10, 6, '#ff9f8f'); } ell(x, y, 8, 8, '#ff6f6f'); }); bunting(1240, 380, 1600, 370, 30, PARTY); balloon(80, 360, '#7cd0ff'); } },
-    g15: { floor: 440, fn() { stringLights(0, 30, 1600, 40, 80, ['#ff6fae', '#7cf7ff', '#ffd84a', '#7cff9b']); stars(80, 400); [[100, 480], [1500, 480]].forEach(([x, y]) => { ell(x, y + 10, 50, 14, '#00000044'); ell(x, y, 40, 24, '#7cff9b', '#ffffff', 3); ell(x, y - 12, 20, 14, '#b4f0ff'); }); } },
-    g16: { floor: 330, fn() { stringLights(0, 30, 1600, 30, 40, ['#fff3a0', '#c9a0ff']); [[90, 320], [1510, 320]].forEach(([x, y]) => lamp(x, y, '#ffe0a0', '#5a3a2e', 120)); shelf(1080, 220, 260, [[30, '#ffb3d6', 'ball'], [90, '#7cd0ff', 'book'], [120, '#ffd84a', 'book'], [180, '#b48cff', 'jar']]); stars(30, 300); } },
-    g17: { floor: 400, fn() { bunting(0, 10, 1600, 10, 40, ['#ffb3d6', '#ffffff', '#ffd84a']); shelf(560, 300, 480, [[40, '#ffffff', 'jar'], [110, '#c96a4a', 'jar'], [180, '#ffffff', 'ball'], [260, '#ffd84a', 'jar'], [340, '#ff9fc4', 'ball'], [420, '#7cd0ff', 'jar']]); [[1300, 880], [300, 880]].forEach(([x, y]) => pot(x, y, .9)); } },
-    g18: { floor: 400, fn() { [[100, 460], [1500, 460]].forEach(([x, y]) => lamp(x, y, '#fff3a0', '#3d566e', 150)); [[700, 880], [1000, 880]].forEach(([x, y]) => tuft(x, y, 1.6)); sign(80, 880, '#3fbf6a', 'RECYCLE'); flowerBed(1200, 880, 300, ['#ffd34d', '#ff6fae']); } },
   };
 
   return {
