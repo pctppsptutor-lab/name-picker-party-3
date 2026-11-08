@@ -1,4 +1,4 @@
-﻿// Game 13 â€” Penguin Overslide
+// Game 13 — Penguin Overslide
 // Ten students in penguin suits belly-slide down ten ice lanes; whoever stops closest to the flag is picked.
 // Twist: the first one slides right past the line into a snow pile; a seal pops out of an ice hole and nudges someone else onto the winning spot.
 (() => {
@@ -30,7 +30,7 @@
   GAME_IMPL.g13 = {
     id: 'g13', title: 'Penguin Overslide', base: 'assets/g13/', titleY: 200, paintedOk: false,
     assets: gAssets(['idle', 'slide', 'brake', 'win', 'tumble', 'spin', 'dash'], ['p1', 'p7', 'p9', 'p13', 'p10', 'p4', 'p23', 'p21']),
-    startBanner: 'ðŸ§ Belly slide â€” GO!', mote: '#eaf8ff', rayColor: '#e6f6ff',
+    startBanner: '🐧 Belly slide — GO!', mote: '#eaf8ff', rayColor: '#e6f6ff',
 
     setup(r) {
       const n = r.players.length, lanes = shuffle([...Array(n).keys()]);
@@ -52,16 +52,16 @@
       for (const p of r.players) if (t > p.launch) cue('go' + p.av + p.ly, () => SFX.noise(.5, { vol: .08, f: 3000, to: 900, q: .7 }));
       if (te < -.25 && t > 1.6) {
         const lead = r.players.reduce((a, b) => dist(r, b, t) > dist(r, a, t) ? b : a);
-        if (lead !== r.leader && t - (r.leaderAt || 0) > .5) { r.leader = lead; r.leaderAt = t; r.banner = 'ðŸ Closest to the flag: ' + lead.name; SFX.leader(); }
+        if (lead !== r.leader && t - (r.leaderAt || 0) > .5) { r.leader = lead; r.leaderAt = t; r.banner = '🏁 Closest to the flag: ' + lead.name; SFX.leader(); }
       }
       if (!r.plain) {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); SFX.wheee(); r.banner = 'ðŸ§ ' + D.name + ' is still slidingâ€¦'; });
-        if (te > .8) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 12); SFX.noise(.5, { vol: .3, f: 700, to: 200 }); FX.smoke(PILE[0], D.ly - 20, 14, '#ffffff'); r.banner = 'â„ï¸ WHOOPS! Right over the line into the snow!'; });
-        if (te > 1.2) cue('c', () => { SFX.splash(); SFX.boing(); r.banner = 'ðŸ¦­ A seal pops out of the iceâ€¦'; });
-        if (te > 1.6) cue('d', () => { outcome('selected', Wn); SFX.wheee(); r.banner = 'ðŸ¦­ â€¦and nudges ' + Wn.name + ' onto the flag!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); SFX.wheee(); r.banner = '🐧 ' + D.name + ' is still sliding…'; });
+        if (te > .8) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 12); SFX.noise(.5, { vol: .3, f: 700, to: 200 }); FX.smoke(PILE[0], D.ly - 20, 14, '#ffffff'); r.banner = '❄️ WHOOPS! Right over the line into the snow!'; });
+        if (te > 1.2) cue('c', () => { SFX.splash(); SFX.boing(); r.banner = '🦭 A seal pops out of the ice…'; });
+        if (te > 1.6) cue('d', () => { outcome('selected', Wn); SFX.wheee(); r.banner = '🦭 …and nudges ' + Wn.name + ' onto the flag!'; });
       } else {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = 'ðŸ§ ' + (D || Wn).name + ' brakes hardâ€¦'; });
-        if (te > 1.2) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = 'ðŸ§ â€¦but someone glides even closer!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '🐧 ' + (D || Wn).name + ' brakes hard…'; });
+        if (te > 1.2) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = '🐧 …but someone glides even closer!'; });
       }
       if (te > 2.7) cue('flag', () => { SFX.ding(); FX.glitter(FLAG_X, Wn.ly - 40, 18, ['#ffffff', '#bfefff']); });
     },
@@ -109,7 +109,7 @@
       drawImg('p7', 1500, 250, 110, { anchor: 'bottom' });
     },
     onFinish(r) { FX.glitter(FLAG_X, r.winner.ly - 80, 30, ['#ffffff', '#bfefff', '#ffd84a']); },
-    winBanner: r => 'ðŸ ' + r.winner.name + ' stops right on the flag!',
+    winBanner: r => '🏁 ' + r.winner.name + ' stops right on the flag!',
     winPos: r => ({ x: FLAG_X, y: r.winner.ly - 90 })
   };
 })();

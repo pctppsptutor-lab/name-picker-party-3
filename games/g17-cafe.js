@@ -1,4 +1,4 @@
-﻿// Game 17 â€” Cat Cafe Mix-Up (teamwork & passing)
+// Game 17 — Cat Cafe Mix-Up (teamwork & passing)
 // Ten students form a serving line and pass a cake from tray to tray; whoever balances it last and delivers it to the table is picked.
 // Twist: the cake grows legs and runs off the first tray; the cat manager blocks it and pushes it onto another tray for a surprise winning delivery.
 (() => {
@@ -25,7 +25,7 @@
   GAME_IMPL.g17 = {
     id: 'g17', title: 'Cat Cafe Mix-Up', base: 'assets/g17/', titleY: 270, paintedOk: false,
     assets: gAssets(['waiting', 'receive', 'pass', 'balance', 'runaway', 'redirect', 'win'], ['p0', 'p1', 'p3', 'p4', 'p6', 'p9', 'p11']),
-    startBanner: 'ðŸ° Pass the cake down the line â€” carefully!', mote: '#fff0d8', rayColor: '#fff2a8',
+    startBanner: '🍰 Pass the cake down the line — carefully!', mote: '#fff0d8', rayColor: '#fff2a8',
 
     setup(r) {
       const n = r.players.length, slots = spread(n);
@@ -41,17 +41,17 @@
     tick(r, t, te) {
       const f = activeFake(r, t), D = r.decoy, Wn = r.winner;
       if (te < 0 && t > 1) { const i = Math.round(cakeIdx(r, t)); if (i !== r.lastI) { r.lastI = i; SFX.tone(1200, .06, { type: 'triangle', vol: .05 }); } }
-      if (f && te < 0) cue('fk' + f.at, () => { r.banner = 'ðŸ° ' + f.p.name + ' balances the cakeâ€¦'; SFX.leader(); });
+      if (f && te < 0) cue('fk' + f.at, () => { r.banner = '🍰 ' + f.p.name + ' balances the cake…'; SFX.leader(); });
       if (!r.plain) {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = 'ðŸ° ' + D.name + ' is about to deliverâ€¦'; });
-        if (te > .5) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.wheee(); r.banner = 'ðŸ¦µ The cake grows legs and RUNS AWAY!'; });
-        if (te > 1.1) cue('c', () => { CAM.shake(r, 8); SFX.quack(0, 3); r.banner = 'ðŸ± The cat manager blocks the wayâ€¦'; });
-        if (te > 1.6) cue('d', () => { outcome('selected', Wn); SFX.pop(); r.banner = 'ðŸ¾ â€¦and pushes it onto ' + Wn.name + "'s tray!"; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '🍰 ' + D.name + ' is about to deliver…'; });
+        if (te > .5) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.wheee(); r.banner = '🦵 The cake grows legs and RUNS AWAY!'; });
+        if (te > 1.1) cue('c', () => { CAM.shake(r, 8); SFX.quack(0, 3); r.banner = '🐱 The cat manager blocks the way…'; });
+        if (te > 1.6) cue('d', () => { outcome('selected', Wn); SFX.pop(); r.banner = '🐾 …and pushes it onto ' + Wn.name + "'s tray!"; });
       } else {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = 'ðŸ° ' + (D || Wn).name + ' wobblesâ€¦'; });
-        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = 'ðŸ° â€¦and passes it to ' + Wn.name + '!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '🍰 ' + (D || Wn).name + ' wobbles…'; });
+        if (te > 1.1) cue('b', () => { outcome('selected', Wn); SFX.boing(); r.banner = '🍰 …and passes it to ' + Wn.name + '!'; });
       }
-      if (te > 2.8) cue('del', () => { SFX.ding(); FX.sparkle(...TABLE, 20); r.banner = 'â˜• Delivered to the table!'; });
+      if (te > 2.8) cue('del', () => { SFX.ding(); FX.sparkle(...TABLE, 20); r.banner = '☕ Delivered to the table!'; });
     },
 
     // the cake's position and whether it has legs
@@ -112,7 +112,7 @@
       drawImg('p0', 1460, 380, 150, { anchor: 'bottom' });
     },
     onFinish() { FX.sparkle(TABLE[0], TABLE[1] - 90, 30, ['#ffb3d6', '#ffd84a', '#ffffff']); },
-    winBanner: r => 'ðŸ° ' + r.winner.name + ' delivers the cake!',
+    winBanner: r => '🍰 ' + r.winner.name + ' delivers the cake!',
     winPos: () => ({ x: TABLE[0] - 60, y: TABLE[1] - 80 })
   };
 })();

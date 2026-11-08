@@ -1,7 +1,7 @@
-﻿// Game 16 â€” Oversleeping Monsters (listening & memory)
+// Game 16 — Oversleeping Monsters (listening & memory)
 // Ten sleepy monsters each have a bell with its own sound and light. The bells play in turn; then one bell rings again
 // and its monster is the one picked.
-// Twist: the first monster jumps up â€” but it is sleepwalking after a fake bell; a pillow bumps the real bell and wakes the winner.
+// Twist: the first monster jumps up — but it is sleepwalking after a fake bell; a pillow bumps the real bell and wakes the winner.
 (() => {
   const XS = [330, 565, 800, 1035, 1270];
   const BEDS = [...XS.map(x => [x, 470]), ...XS.map(x => [x, 760])];
@@ -13,7 +13,7 @@
   GAME_IMPL.g16 = {
     id: 'g16', title: 'Oversleeping Monsters', base: 'assets/g16/', titleY: 260, paintedOk: false,
     assets: gAssets(['sleep', 'hear', 'remember', 'false', 'pillow', 'win'], ['p0', 'p1', 'p3', 'p7', 'p16', 'p18', 'p20']),
-    startBanner: 'ðŸ”” Listen to each monster\'s bell!', mote: '#d6d0ff', rayColor: '#fff0b0',
+    startBanner: '🔔 Listen to each monster\'s bell!', mote: '#d6d0ff', rayColor: '#fff0b0',
 
     setup(r) {
       const slots = spread(r.players.length);
@@ -35,18 +35,18 @@
     tick(r, t, te) {
       const D = r.decoy, Wn = r.winner;
       r.players.forEach((p, i) => { if (t > .6 + i * r.step && t < r.listenEnd) cue('l' + i, () => ring(p.slot)); });
-      if (t > .6) cue('lis', () => { r.banner = 'ðŸ‘‚ Listen to each monster\'s bellâ€¦'; });
-      if (t > r.listenEnd) cue('mem', () => { r.banner = 'ðŸ”” Which bell is ringing now?'; });
+      if (t > .6) cue('lis', () => { r.banner = '👂 Listen to each monster\'s bell…'; });
+      if (t > r.listenEnd) cue('mem', () => { r.banner = '🔔 Which bell is ringing now?'; });
       const f = activeFake(r, t);
-      if (f && te < 0) cue('fk' + f.at, () => { ring(f.p.slot); r.banner = 'ðŸ”” Is that ' + f.p.name + "'s bell?"; });
+      if (f && te < 0) cue('fk' + f.at, () => { ring(f.p.slot); r.banner = '🔔 Is that ' + f.p.name + "'s bell?"; });
       if (!r.plain) {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); SFX.boing(); r.banner = 'ðŸ˜´ ' + D.name + ' jumps out of bedâ€¦'; });
-        if (te > .6) cue('b', () => { outcome('wrong_turn', D); SFX.tone(300, .8, { type: 'sine', vol: .1, vib: 15, vibRate: 4 }); r.banner = 'ðŸ’¤ â€¦but it\'s sleepwalking after a FAKE bell!'; });
-        if (te > 1.1) cue('c', () => { SFX.swoosh(); r.banner = 'ðŸ›ï¸ A pillow flies across the roomâ€¦'; });
-        if (te > 1.6) cue('d', () => { outcome('selected', Wn); ring(Wn.slot); ring(Wn.slot, .25); CAM.shake(r, 7); FX.glitter(...bellAt(Wn), 16); r.banner = 'ðŸ”” BONG! It hits the real bell!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); SFX.boing(); r.banner = '😴 ' + D.name + ' jumps out of bed…'; });
+        if (te > .6) cue('b', () => { outcome('wrong_turn', D); SFX.tone(300, .8, { type: 'sine', vol: .1, vib: 15, vibRate: 4 }); r.banner = '💤 …but it\'s sleepwalking after a FAKE bell!'; });
+        if (te > 1.1) cue('c', () => { SFX.swoosh(); r.banner = '🛏️ A pillow flies across the room…'; });
+        if (te > 1.6) cue('d', () => { outcome('selected', Wn); ring(Wn.slot); ring(Wn.slot, .25); CAM.shake(r, 7); FX.glitter(...bellAt(Wn), 16); r.banner = '🔔 BONG! It hits the real bell!'; });
       } else {
-        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); ring((D || Wn).slot); r.banner = 'ðŸ”” ' + (D || Wn).name + "'s bellâ€¦?"; });
-        if (te > 1.6) cue('d', () => { outcome('selected', Wn); ring(Wn.slot); ring(Wn.slot, .25); r.banner = 'ðŸ”” No â€” this bell! Wake up, ' + Wn.name + '!'; });
+        if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); ring((D || Wn).slot); r.banner = '🔔 ' + (D || Wn).name + "'s bell…?"; });
+        if (te > 1.6) cue('d', () => { outcome('selected', Wn); ring(Wn.slot); ring(Wn.slot, .25); r.banner = '🔔 No — this bell! Wake up, ' + Wn.name + '!'; });
       }
       if (te > 2.4) cue('wake', () => { SFX.ding(); FX.sparkle(Wn.bx, Wn.by - 80, 20); });
     },
@@ -99,7 +99,7 @@
       drawImg('p1', 120, 860, 190, { anchor: 'bottom' });
     },
     onFinish(r) { FX.sparkle(r.winner.bx, r.winner.by - 120, 36, LIGHTS); },
-    winBanner: r => 'â° ' + r.winner.name + ' is finally awake!',
+    winBanner: r => '⏰ ' + r.winner.name + ' is finally awake!',
     winPos: r => ({ x: r.winner.bx, y: r.winner.by - 110 })
   };
 })();
