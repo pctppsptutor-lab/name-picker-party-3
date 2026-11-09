@@ -1,4 +1,4 @@
-const CACHE_NAME = 'name-picker-vol3-v15';
+const CACHE_NAME = 'name-picker-vol3-v16';
 const PRECACHE = [
   "./",
   "./index.html",
@@ -14,11 +14,7 @@ const PRECACHE = [
   "./games/g15-aliens.js",
   "./games/g16-monsters.js",
   "./games/g17-cafe.js",
-  "./games/g18-recycle.js",
-  "./assets/g13/sfx_almost_selected.wav",
-  "./assets/g13/sfx_selected.wav",
-  "./assets/g13/sfx_wrong_turn.wav",
-  "./assets/g13/sfx_win.wav"
+  "./games/g18-recycle.js"
 ];
 
 self.addEventListener('install', e => {
