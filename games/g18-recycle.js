@@ -1,4 +1,4 @@
-// Game 18 — Recycling Truck Mix-Up (sorting & puzzles)
+// Game 18 — Beep Beep, Trash Truck! (sorting & puzzles)
 // Each student has an item to sort; the recycling truck scans the bins one by one and the bin it lights up picks the player.
 // Twist: the first bin springs open with a toy spring and flags a sorting error; a metal can rolls past the sensor and lights the winner's bin.
 (() => {
@@ -16,7 +16,7 @@
   }
 
   GAME_IMPL.g18 = {
-    id: 'g18', title: 'Recycling Truck Mix-Up', base: 'assets/g18/', titleY: 230, paintedOk: false,
+    id: 'g18', title: 'Beep Beep, Trash Truck!', base: 'assets/g18/', titleY: 230, paintedOk: false,
     assets: gAssets(['observe', 'scan', 'compare', 'select', 'false', 'sensor', 'win'], [...BINS, 'p28', 'p29', 'p30', 'p0', 'p7', 'p10', 'p13', 'p14', 'p33', 'p34']),
     startBanner: '♻️ The recycling truck starts its rounds!', mote: '#e8ffe0', rayColor: '#eaffb0',
 

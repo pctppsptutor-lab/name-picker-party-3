@@ -1,4 +1,4 @@
-// Game 14 — Secret Shell Swap
+// Game 14 — Where’s My Shell?
 // Ten students wearing ten different shells scuttle sideways across the beach; the first to reach the sandcastle is picked.
 // Twist: the first shell to arrive is empty; a sea bubble pops and shows the real winner hiding inside another shell.
 (() => {
@@ -14,7 +14,7 @@
   }
 
   GAME_IMPL.g14 = {
-    id: 'g14', title: 'Secret Shell Swap', base: 'assets/g14/', titleY: 220, paintedOk: false,
+    id: 'g14', title: 'Where’s My Shell?', base: 'assets/g14/', titleY: 220, paintedOk: false,
     assets: gAssets(['idle', 'ready', 'action', 'almost', 'fake', 'twist', 'win'], [...SHELLS, 'p0', 'p1', 'p2', 'p3', 'p18', 'p30', 'p33', 'p37']),
     startBanner: '🦀 Scuttle sideways to the sandcastle!', mote: '#fff6dc', rayColor: '#fff2a8',
 

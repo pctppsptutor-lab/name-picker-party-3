@@ -1,4 +1,4 @@
-// Game 15 — Alien Costume Party (music & rhythm)
+// Game 15 — Alien Dance Party (music & rhythm)
 // Ten "aliens" watch a dance move on the disco floor, then copy it. When the music stops everyone freezes,
 // and the scanner picks whoever held the last pose.
 // Twist: the first alien in the light pops open — two tiny aliens inside, striking the wrong pose; the disco ball replays the last beat and picks the real winner.
@@ -16,7 +16,7 @@
   }
 
   GAME_IMPL.g15 = {
-    id: 'g15', title: 'Alien Costume Party', base: 'assets/g15/', titleY: 430, paintedOk: false,
+    id: 'g15', title: 'Alien Dance Party', base: 'assets/g15/', titleY: 430, paintedOk: false,
     assets: gAssets(['watch', 'step', 'turn', 'freeze', 'scan', 'tiny', 'win'], ['p0', 'p1', 'p2', 'p4', 'p6', 'p11', 'p12', 'p24', 'p31']),
     startBanner: '👽 Watch the move… then copy it!', mote: '#e6d6ff', rayColor: '#e6ccff',
 

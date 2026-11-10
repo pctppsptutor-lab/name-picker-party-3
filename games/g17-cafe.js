@@ -1,4 +1,4 @@
-// Game 17 — Cat Cafe Mix-Up (teamwork & passing)
+// Game 17 — Oops, Wrong Cake! (teamwork & passing)
 // Ten students form a serving line and pass a cake from tray to tray; whoever balances it last and delivers it to the table is picked.
 // Twist: the cake grows legs and runs off the first tray; the cat manager blocks it and pushes it onto another tray for a surprise winning delivery.
 (() => {
@@ -23,7 +23,7 @@
   }
 
   GAME_IMPL.g17 = {
-    id: 'g17', title: 'Cat Cafe Mix-Up', base: 'assets/g17/', titleY: 270, paintedOk: false,
+    id: 'g17', title: 'Oops, Wrong Cake!', base: 'assets/g17/', titleY: 270, paintedOk: false,
     assets: gAssets(['waiting', 'receive', 'pass', 'balance', 'runaway', 'redirect', 'win'], ['p0', 'p1', 'p3', 'p4', 'p6', 'p9', 'p11']),
     startBanner: '🍰 Pass the cake down the line — carefully!', mote: '#fff0d8', rayColor: '#fff2a8',
 

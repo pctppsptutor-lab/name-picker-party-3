@@ -1,4 +1,4 @@
-// Game 13 — Penguin Overslide
+// Game 13 — Penguins on Ice
 // Ten students in penguin suits belly-slide down ten ice lanes; whoever stops closest to the flag is picked.
 // Twist: the first one slides right past the line into a snow pile; a seal pops out of an ice hole and nudges someone else onto the winning spot.
 (() => {
@@ -28,7 +28,7 @@
   }
 
   GAME_IMPL.g13 = {
-    id: 'g13', title: 'Penguin Overslide', base: 'assets/g13/', titleY: 200, paintedOk: false,
+    id: 'g13', title: 'Penguins on Ice', base: 'assets/g13/', titleY: 200, paintedOk: false,
     assets: gAssets(['idle', 'slide', 'brake', 'win', 'tumble', 'spin', 'dash'], ['p1', 'p7', 'p9', 'p13', 'p10', 'p4', 'p23', 'p21']),
     startBanner: '🐧 Belly slide — GO!', mote: '#eaf8ff', rayColor: '#e6f6ff',
 
