@@ -1,6 +1,6 @@
 # Name Picker Party 3
 
-Six more classroom name-picker mini-games (13–18), on the same engine and look as Name Picker Party 1 and 2. Local only for now.
+Six more classroom name-picker mini-games (13–18), on the same engine and look as Name Picker Party 1 and 2.
 
 ## How to run
 
@@ -15,7 +15,7 @@ From this folder run `python -m http.server 8767` and open http://localhost:8767
 | 17 Cat Cafe Mix-Up | The cake is passed along the serving line to the table. | The cake grows legs and runs off; the cat manager blocks it and pushes it onto another tray. |
 | 18 Recycling Truck Mix-Up | The truck scans each bin; the lit bin picks its student. | A toy spring pops out and flags an error; a metal can rolls past the sensor and lights the real bin. |
 
-About one round in four has no twist. The winner is always chosen the moment you press Pick.
+Rounds last 7 or 10 seconds. Plot Twist is off by default and can be enabled in Settings. The winner is chosen when you press Pick.
 
 
 ## Sound effects
@@ -25,3 +25,5 @@ Game-specific MP3 effects load only for the selected game and use the existing S
 Run the dependency-free audio lifecycle checks with `node tests/sfx.test.cjs`.
 
 Each game streams its own Kevin MacLeod BGM from `assets/bgm/` after a user gesture. Music credits and CC BY 4.0 sources are in `assets/bgm/credits.html`. Short action/result jingles retain VCSL samples; foreground effects briefly lower the music.
+
+Regression checks: `node tests/core.test.cjs` and `node tests/sw.test.cjs`. A BGM becomes available offline after that game’s track has loaded once.
