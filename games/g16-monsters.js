@@ -8,7 +8,7 @@
   const NOTES = [60, 62, 64, 67, 69, 72, 74, 76, 79, 81];                       // a pentatonic run, one note per bed
   const LIGHTS = ['#ff6f6f', '#ffb347', '#ffe066', '#7cff9b', '#7cf7ff', '#6fa8ff', '#b48cff', '#ff7ad9', '#ffffff', '#c6ff6f'];
   const bellAt = p => [p.bx + 70, p.by - 110];
-  const ring = (i, d = 0) => SFX.tone(mtof(NOTES[i] + 12), .45, { type: 'triangle', vol: .14, delay: d });
+  const ring = (i, d = 0) => { if (store.settings.sound) AUD.duckMusic(.4, .4); SFX.tone(mtof(NOTES[i] + 12), .45, { type: 'triangle', vol: .14, delay: d }); };
 
   GAME_IMPL.g16 = {
     id: 'g16', title: 'Wake Up, Monsters!', base: 'assets/g16/', titleY: 260,
