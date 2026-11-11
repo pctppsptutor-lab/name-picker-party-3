@@ -28,7 +28,7 @@
   }
 
   GAME_IMPL.g13 = {
-    id: 'g13', title: 'Penguins on Ice', base: 'assets/g13/', titleY: 200, paintedOk: false,
+    id: 'g13', title: 'Penguins on Ice', base: 'assets/g13/', titleY: 200,
     assets: gAssets(['idle', 'slide', 'brake', 'win', 'tumble', 'spin', 'dash'], ['p1', 'p7', 'p9', 'p13', 'p10', 'p4', 'p23', 'p21']),
     startBanner: '🐧 Belly slide — GO!', mote: '#eaf8ff', rayColor: '#e6f6ff',
 

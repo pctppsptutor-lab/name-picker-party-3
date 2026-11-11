@@ -14,7 +14,7 @@
   }
 
   GAME_IMPL.g14 = {
-    id: 'g14', title: 'Where’s My Shell?', base: 'assets/g14/', titleY: 220, paintedOk: false,
+    id: 'g14', title: 'Where’s My Shell?', base: 'assets/g14/', titleY: 220,
     assets: gAssets(['idle', 'ready', 'action', 'almost', 'fake', 'twist', 'win'], [...SHELLS, 'p0', 'p1', 'p2', 'p3', 'p18', 'p30', 'p33', 'p37']),
     startBanner: '🦀 Scuttle sideways to the sandcastle!', mote: '#fff6dc', rayColor: '#fff2a8',
 
@@ -42,7 +42,7 @@
         const lead = r.players.reduce((a, b) => progress(r, b, t) > progress(r, a, t) ? b : a);
         if (lead !== r.leader && t - (r.leaderAt || 0) > .5) { r.leader = lead; r.leaderAt = t; r.banner = '🐚 In front: ' + lead.name; SFX.leader(); }
       }
-      if (te < 0 && Math.random() < .06) SFX.tone(900 + Math.random() * 400, .03, { type: 'triangle', vol: .02 });   // tiny scuttling clicks
+
       if (!r.plain) {
         if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '🐚 ' + D.name + "'s shell reaches the castle!"; });
         if (te > .7) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.sadTrombone(); r.banner = '❓ Wait… the shell is EMPTY!'; });

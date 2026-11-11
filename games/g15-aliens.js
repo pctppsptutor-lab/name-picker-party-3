@@ -16,7 +16,7 @@
   }
 
   GAME_IMPL.g15 = {
-    id: 'g15', title: 'Alien Dance Party', base: 'assets/g15/', titleY: 430, paintedOk: false,
+    id: 'g15', title: 'Alien Dance Party', base: 'assets/g15/', titleY: 430,
     assets: gAssets(['watch', 'step', 'turn', 'freeze', 'scan', 'tiny', 'win'], ['p0', 'p1', 'p2', 'p4', 'p6', 'p11', 'p12', 'p24', 'p31']),
     startBanner: '👽 Watch the move… then copy it!', mote: '#e6d6ff', rayColor: '#e6ccff',
 

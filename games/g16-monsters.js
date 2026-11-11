@@ -11,7 +11,7 @@
   const ring = (i, d = 0) => SFX.tone(mtof(NOTES[i] + 12), .45, { type: 'triangle', vol: .14, delay: d });
 
   GAME_IMPL.g16 = {
-    id: 'g16', title: 'Wake Up, Monsters!', base: 'assets/g16/', titleY: 260, paintedOk: false,
+    id: 'g16', title: 'Wake Up, Monsters!', base: 'assets/g16/', titleY: 260,
     assets: gAssets(['sleep', 'hear', 'remember', 'false', 'pillow', 'win'], ['p0', 'p1', 'p3', 'p7', 'p16', 'p18', 'p20']),
     startBanner: '🔔 Listen to each monster\'s bell!', mote: '#d6d0ff', rayColor: '#fff0b0',
 

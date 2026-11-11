@@ -23,7 +23,7 @@
   }
 
   GAME_IMPL.g17 = {
-    id: 'g17', title: 'Oops, Wrong Cake!', base: 'assets/g17/', titleY: 270, paintedOk: false,
+    id: 'g17', title: 'Oops, Wrong Cake!', base: 'assets/g17/', titleY: 270,
     assets: gAssets(['waiting', 'receive', 'pass', 'balance', 'runaway', 'redirect', 'win'], ['p0', 'p1', 'p3', 'p4', 'p6', 'p9', 'p11']),
     startBanner: '🍰 Pass the cake down the line — carefully!', mote: '#fff0d8', rayColor: '#fff2a8',
 
@@ -45,7 +45,7 @@
       if (!r.plain) {
         if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '🍰 ' + D.name + ' is about to deliver…'; });
         if (te > .5) cue('b', () => { outcome('wrong_turn', D); SFX.boing(); SFX.wheee(); r.banner = '🦵 The cake grows legs and RUNS AWAY!'; });
-        if (te > 1.1) cue('c', () => { CAM.shake(r, 8); SFX.quack(0, 3); r.banner = '🐱 The cat manager blocks the way…'; });
+        if (te > 1.1) cue('c', () => { CAM.shake(r, 8); r.banner = '🐱 The cat manager blocks the way…'; });
         if (te > 1.6) cue('d', () => { outcome('selected', Wn); SFX.pop(); r.banner = '🐾 …and pushes it onto ' + Wn.name + "'s tray!"; });
       } else {
         if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D || Wn); r.banner = '🍰 ' + (D || Wn).name + ' wobbles…'; });

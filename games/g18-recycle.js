@@ -16,7 +16,7 @@
   }
 
   GAME_IMPL.g18 = {
-    id: 'g18', title: 'Beep Beep, Trash Truck!', base: 'assets/g18/', titleY: 230, paintedOk: false,
+    id: 'g18', title: 'Beep Beep, Trash Truck!', base: 'assets/g18/', titleY: 230,
     assets: gAssets(['observe', 'scan', 'compare', 'select', 'false', 'sensor', 'win'], [...BINS, 'p28', 'p29', 'p30', 'p0', 'p7', 'p10', 'p13', 'p14', 'p33', 'p34']),
     startBanner: '♻️ The recycling truck starts its rounds!', mote: '#e8ffe0', rayColor: '#eaffb0',
 
@@ -36,7 +36,7 @@
       const f = activeFake(r, t), D = r.decoy, Wn = r.winner;
       if (te < 0 && !f) r.lastTX = this.truckX(r, t);
       if (f && te < 0) cue('fk' + f.at, () => { r.banner = '🔍 Scanning ' + f.p.name + "'s bin…"; SFX.tone(1400, .15, { type: 'square', vol: .04, to: 1800 }); });
-      if (te < 0 && Math.random() < .03) SFX.tone(80, .1, { type: 'sawtooth', vol: .03, lp: 300 });   // engine rumble
+
       if (!r.plain) {
         if (te > 0) cue('a', () => { Music.play('tension'); outcome('almost_selected', D); r.banner = '♻️ ' + D.name + "'s bin lights up…"; });
         if (te > .5) cue('b', () => { outcome('wrong_turn', D); CAM.shake(r, 9); SFX.boing(); [0, .25].forEach(d => SFX.tone(660, .2, { type: 'square', vol: .07, delay: d })); r.banner = '⚠️ BOING! A toy spring — wrong sort!'; });

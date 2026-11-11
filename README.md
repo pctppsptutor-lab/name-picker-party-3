@@ -16,3 +16,10 @@ From this folder run `python -m http.server 8767` and open http://localhost:8767
 | 18 Recycling Truck Mix-Up | The truck scans each bin; the lit bin picks its student. | A toy spring pops out and flags an error; a metal can rolls past the sensor and lights the real bin. |
 
 About one round in four has no twist. The winner is always chosen the moment you press Pick.
+
+
+## Sound effects
+
+Game-specific MP3 effects load only for the selected game and use the existing Sound toggle and SFX volume. Credits and edit details are in `assets/sfx/credits.html` and `assets/sfx/sources.json`.
+
+Run the dependency-free audio lifecycle checks with `node tests/sfx.test.cjs`.
